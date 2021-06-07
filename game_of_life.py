@@ -11,14 +11,14 @@ vals = [ON, OFF]
 
 def addGlider(i,j,grid, N):
     glider = np.array([[0, 0, 255],[255, 0, 255],[0, 255, 255]])
-    if i == 2 and j == 2:
-        glider = np.array([[0, 0, 255],[255, 0, 255],[0, 255, 255]])
-    elif i == N-3 and j == N-3:
+    if i == 1 and j == 1:
+        glider = np.array([[0, 255, 0],[0, 0, 255],[255, 255, 255]])
+    elif i == N-4 and j == N-4:
         glider = np.array([[255, 255, 0],[255, 0, 255],[255, 0, 0]])
-    elif i == 4 and j == N-3:
-        glider = np.array([[0, 255, 255],[255, 0, 255],[0, 0, 255]])
-    elif i == N-3 and j == 2:
-        glider = np.array([[255, 0, 0],[255, 0, 255],[255, 255, 0]])
+    elif i == 1 and j == N-4:
+        glider = np.array([[0, 255, 0],[255, 0, 0],[255, 255, 255]])
+    elif i == N-4 and j == 1:
+        glider = np.array([[255, 255, 255],[0, 0, 255],[0, 255, 0]])
 
     grid[i:i+3, j:j+3] = glider
     
@@ -56,7 +56,7 @@ def main():
     parser.add_argument('--grid-size', dest="N", required=False)
     parser.add_argument('--mov-file', dest='movfile', required=False)
     # parser.add_argument('--interval', dest='interval', required=False)
-    parser.add_argument('--gliders', dest='numGliders', required=False)
+    parser.add_argument('--gliders', action='store_true', required=False)
     
 
     args= parser.parse_args()
@@ -72,20 +72,21 @@ def main():
 
     grid= np.array([])
 
-    if args.numGliders:
+    if args.gliders:
         grid = np.zeros(N*N).reshape(N,N)
-        for i in range(int(args.numGliders)):
-            print(N)
+        for i in range(4):
+            # print(N)
             if i == 0:
-                # addGlider(2, 2, grid, N)
+                addGlider(1, 1, grid, N)
                 pass
             elif(i == 1):
-                addGlider(3, N-4, grid, N)
+                addGlider(1, N-4, grid, N)
+                pass
             elif(i == 2):
-                # addGlider(N-3, 2, grid, N)
+                addGlider(N-4, 1, grid, N)
                 pass
             elif(i == 3):
-                # addGlider(N-3, N-3, grid, N)
+                addGlider(N-4, N-4, grid, N)
                 pass
     else:
         grid = randomGrid(N)
@@ -98,9 +99,11 @@ def main():
                                   save_count=50)
 
     if args.movfile:
-        ani.save(args.movfile, fps=30, extra_args=['-vcodec', 'libx264'])
+        ani.save(args.movfile, writer='ffmpeg', fps=30)
 
-    plt.show()
+    plt.show()     
+    # print("hola3")
+    
 
 if __name__ == '__main__':
     main()
