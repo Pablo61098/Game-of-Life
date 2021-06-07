@@ -94,15 +94,14 @@ def main():
     fig, ax = plt.subplots()
     img = ax.imshow(grid, interpolation = 'nearest')
     ani = animation.FuncAnimation(fig, update, fargs=(img, grid, N,),
-                                  frames=10,
+                                  frames=300,
                                   interval=updateInterval,
                                   save_count=50)
 
-    if args.movfile:
-        ani.save(args.movfile, writer='ffmpeg', fps=30)
-
     plt.show()     
     # print("hola3")
+    if args.movfile:
+        ani.save(args.movfile, writer='ffmpeg', fps=30)
     
 
 if __name__ == '__main__':
