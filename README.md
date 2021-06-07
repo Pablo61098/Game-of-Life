@@ -6,4 +6,6 @@ This code impements Conway's Game of Life. I like this one a lot so here it is f
 
 run <b>$ python3 game_of_life.py</b> to get default execution. It will be a random setup with a grid of 100x100.
 
-To get cool result run <b>$ python3 game_of_life.py --gliders</b>. 
+To get cool result run <b>$ python3 game_of_life.py --gliders</b>.
+
+Size of grid can be changed by setting <b>--grid-size N</b>. With N as the grid size (NxN).
